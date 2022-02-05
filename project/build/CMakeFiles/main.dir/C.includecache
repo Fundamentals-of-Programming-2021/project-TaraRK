@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/hi.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+time.h
+-
+SDL2/SDL.h
+-
+SDL2/SDL_timer.h
+-
+SDL2/SDL2_gfxPrimitives.h
+-
+SDL2/SDL_ttf.h
+-
+
+/home/tara/Desktop/project/sdltest.c
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+SDL2/SDL.h
+-
+SDL2/SDL_timer.h
+-
+SDL2/SDL2_gfxPrimitives.h
+-
+SDL2/SDL_ttf.h
+-
+math.h
+-
+hi.h
+-
+

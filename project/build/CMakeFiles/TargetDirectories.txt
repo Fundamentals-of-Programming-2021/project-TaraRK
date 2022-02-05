@@ -1,0 +1,3 @@
+/home/tara/Desktop/project/build/CMakeFiles/rebuild_cache.dir
+/home/tara/Desktop/project/build/CMakeFiles/edit_cache.dir
+/home/tara/Desktop/project/build/CMakeFiles/main.dir
