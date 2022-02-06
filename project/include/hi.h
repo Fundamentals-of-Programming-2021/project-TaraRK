@@ -38,22 +38,31 @@ typedef struct triangle
 // {
 //     filledEllipseColor(renderer, )
 // }
+int timestamp (SDL_Event* event)
+{
+    switch (event->type)
+    {
+        case (SDL_MOUSEBUTTONDOWN || SDL_MOUSEBUTTONUP ):
+            return (event->button.timestamp);
+    }
+}
 void initialize(triangle* triangles)
 {
     for (int i = 0; i < 9; i ++)
     {
-        (triangles + i)->counter = 100;
         (triangles + i)->flag = 0;
         if (i % 3 == 1)
         {
             (triangles + i)->background = 0x099999ff;
             (triangles + i)->soldiernum = 0;
+            (triangles + i)->counter = 0;
             (triangles + i)->flag = 1;
         }
         else if (i % 3 == 2)
         {
             (triangles + i)->background = 0x09ffcc99;
             (triangles + i)->soldiernum = 0;
+            (triangles + i)->counter = 0;
         }
         else 
         {
