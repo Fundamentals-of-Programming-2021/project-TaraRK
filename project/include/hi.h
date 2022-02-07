@@ -15,8 +15,8 @@ typedef struct triangle
     int soldiernum;
     Uint32 background;
     SDL_Rect number;
-    // SDL_Surface* surfaceMessage;
-    // SDL_Texture* Message;
+    SDL_Surface* surfaceMessage;
+    SDL_Texture* Message;
     char numstr [5];
     long long int counter;
     int flag;

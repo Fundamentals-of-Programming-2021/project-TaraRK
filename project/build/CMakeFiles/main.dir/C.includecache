@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+../include/Menu.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+time.h
+-
+SDL2/SDL.h
+-
+SDL2/SDL_timer.h
+-
+SDL2/SDL2_gfxPrimitives.h
+-
+SDL2/SDL_ttf.h
+-
+
 ../include/hi.h
 stdio.h
 -
@@ -42,5 +60,7 @@ SDL2/SDL_ttf.h
 math.h
 -
 hi.h
+-
+Menu.h
 -
 
