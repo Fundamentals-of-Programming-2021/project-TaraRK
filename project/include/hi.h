@@ -15,8 +15,8 @@ typedef struct triangle
     int soldiernum;
     Uint32 background;
     SDL_Rect number;
-    SDL_Surface* surfaceMessage;
-    SDL_Texture* Message;
+    // SDL_Surface* surfaceMessage;
+    // SDL_Texture* Message;
     char numstr [5];
     long long int counter;
     int flag;
@@ -131,9 +131,9 @@ void drawcastle (triangle* triangles, int n, SDL_Renderer* renderer)
 {
     for (int i = 0; i < n; i++)
     {
-        if (i % 3 == 1)
+        if ((triangles +i)->flag)
             filledCircleColor(renderer, (triangles + i)->center.x, (triangles + i)->center.y, 20, 0xff000099);
-        else if (i % 3 == 2)
+        else if ((triangles + i)->background != 0xff808080)
         {
             filledCircleColor(renderer, (triangles + i)->center.x, (triangles + i)->center.y, 20, 0xff994c00);
         }
@@ -158,16 +158,24 @@ void inttostr(int a, char* b)
 {
     int acopy = a;
     int counter = 0;
-    while (acopy)
+    if (a == 0)
     {
-        counter ++;
-        acopy /= 10;
+        b[0] = '0';
+        counter = 1;
     }
-    acopy = a;
-    for (int i = counter - 1; i >= 0; i--)
-    { 
-        b[i] = (acopy % 10) + '0';
-        acopy /= 10;
+    else 
+    {
+        while (acopy)
+        {
+            counter ++;
+            acopy /= 10;
+        }
+        acopy = a;
+        for (int i = counter - 1; i >= 0; i--)
+        { 
+            b[i] = (acopy % 10) + '0';
+            acopy /= 10;
+        }
     }
     b[counter] = '\0';
 }
@@ -176,7 +184,7 @@ void drawmap(triangle* triangles, SDL_Renderer* renderer)
     for (int i = 0; i < 9; i ++)
     {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-        if (i % 3 == 1)
+        if ((triangles +i)->flag)
             filledTrigonColor(renderer, 2 * ((triangles + i)->p1).x, 2 * ((triangles + i)->p1).y, 2 * ((triangles + i)->p2).x, 2 * ((triangles + i)->p2).y, 2 * ((triangles + i)->p3).x, 2 * ((triangles + i)->p3).y, (triangles + i)->background);
         else if (i % 3 == 2)
             filledTrigonColor(renderer, 2 * ((triangles + i)->p1).x, 2 * ((triangles + i)->p1).y, 2 * ((triangles + i)->p2).x, 2 * ((triangles + i)->p2).y, 2 * ((triangles + i)->p3).x, 2 * ((triangles + i)->p3).y, (triangles + i)->background);
