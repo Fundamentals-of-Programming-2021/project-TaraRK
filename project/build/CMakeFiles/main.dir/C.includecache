@@ -41,6 +41,8 @@ SDL2/SDL2_gfxPrimitives.h
 -
 SDL2/SDL_ttf.h
 -
+SDL2/SDL_image.h
+-
 
 /home/tara/Desktop/project/sdltest.c
 stdio.h
@@ -56,6 +58,8 @@ SDL2/SDL_timer.h
 SDL2/SDL2_gfxPrimitives.h
 -
 SDL2/SDL_ttf.h
+-
+SDL2/SDL_image.h
 -
 math.h
 -
