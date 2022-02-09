@@ -8,7 +8,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #define true 1;
-const int FPS = 50;
+const int FPS = 55;
 Uint32 background = 0xffe0e0e0;
 SDL_Color black = {0, 0, 0, 255};
 time_t t2;
@@ -59,6 +59,12 @@ typedef struct potion
     SDL_Rect rect;
     int flag;
     int type;
+    int counter;
+    int countmax;
+    SDL_Rect time;
+    int stopattack;
+    int r;
+    int rgameprogress;
 } potion;
 // typedef struct ellipse
 // {
@@ -430,21 +436,6 @@ int oppinit(triangle* triangles, int* opsrc, int* opdest)
 // }
 
 //Potion Functions
-void potioncoordinator (potion* potion)
-{
-    if ( !(rand() % 4) )
-    {
-        potion->rect.x = 300 + (rand() % 700);
-        potion->rect.y = 400 + (rand() % 600);
-    }
-    else
-    {
-        potion->rect.x = 200 + (rand() % 300);
-        potion->rect.y = 200 + (rand() % 300);
-    }
-    potion->rect.h = 50;
-    potion->rect.w = 50;
-}
 
 void potionrenderer (potion* potion, SDL_Renderer* sdlRenderer)
 {
@@ -480,7 +471,36 @@ void createpotion (potion* potion)
     {
         int a = rand() % 4 + 1;
         potion->type = a;
-    }
+        potion->flag = 0;
+        switch (potion->type)
+        {
+            case 1 :
+                potion->countmax = 300;
+                potion->stopattack = 0;
+                break;
+            case 2 :
+                potion->countmax = 500;
+                break;
+            case 3 :
+                potion->countmax = 250;
+                break;
+            case 4 :
+                potion->countmax = 400;
+                break;
+        }
+        if ( !(rand() % 4) )
+        {
+            potion->rect.x = 300 + (rand() % 700);
+            potion->rect.y = 400 + (rand() % 600);
+        }
+        else
+        {
+            potion->rect.x = 200 + (rand() % 300);
+            potion->rect.y = 200 + (rand() % 300);
+        }
+        potion->rect.h = 50;
+        potion->rect.w = 50;
+    }    
 }
 void potiontest(potion* potion, SDL_Renderer* renderer)
 {
@@ -492,7 +512,66 @@ void potiontest(potion* potion, SDL_Renderer* renderer)
     SDL_DestroyTexture(text);
     IMG_Quit();
 }
+int hitpotion (soldier* soldiers, potion* potion)
+{
+    if (soldiers->x >= potion->rect.x && (soldiers->x <= potion->rect.x + potion->rect.w) 
+        && soldiers->y >= potion->rect.y && (soldiers->y <= potion->rect.y + potion->rect.h) )
+        return 1;
+    else 
+        return 0;
+}
 
-
+void potiontime(SDL_Renderer* renderer, potion* potion)
+{
+    SDL_SetRenderDrawColor(renderer, 0x00, 0x66, 0x33, 0xff);
+    potion->time.x = 750;
+    potion->time.y = 60;
+    potion->time.h = 50;
+    double temp = (double)(potion->counter) / (double)(potion->countmax);
+    potion->time.w = temp * 600;
+    SDL_RenderFillRect(renderer, &(potion->time));
+    if (potion->type == 1)
+    {
+        potion->stopattack = 1;
+    }    
+}
+void potioninit(potion* potion)
+{
+    switch (potion->type)
+    {
+        case 1 : // stops from moving
+            potion->stopattack = 1;
+            break;
+        case 2 :
+            potion->r = 1.5;
+            break;
+        case 3 :
+            potion->rgameprogress = 10;
+            break;
+        case 4 :
+            break;
+    }
+}
+// void potiontext (potion* potion, SDL_Renderer* renderer)
+// {
+//     sw
+// }
+void potionquit (potion* potion)
+{
+    switch (potion->type)
+    {
+        case 1 : // stops from moving
+            potion->stopattack = 0;
+            break;
+        case 2 :
+            potion->r = 1;
+            break;
+        case 3 :
+            potion->rgameprogress = 0;
+            break;
+        case 4 :
+            break;
+    }
+}
 
 

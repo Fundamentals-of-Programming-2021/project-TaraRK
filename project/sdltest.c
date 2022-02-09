@@ -81,6 +81,7 @@ int main(void)
     dest origin;
     int srctime = 0;
     int desttime = 0;
+    SDL_Rect time;
 
     int beginattack = 0;
     int initializeattack = 0;
@@ -93,6 +94,7 @@ int main(void)
     int opbeginattack = 0;
     opponent opp;
     int opattackinit = 0;
+    int q = 0;
     int opattackongoing = 0;
     double* opcos = (double*)malloc(sizeof(double));
     double* opsin = (double*)malloc(sizeof(double));
@@ -161,7 +163,8 @@ int main(void)
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 
                                                    SDL_RENDERER_PRESENTVSYNC | 
                                                    SDL_RENDERER_ACCELERATED);
-    int potioncounter = 0; int flag = 0; int destcleaner = 0; 
+    int potioncounter = 0; int flag = 0; int destcleaner = 0; potion.stopattack = 0;
+    potion.r = 1;
     int* opsrc = (int*)malloc(sizeof(int));
     int* opdest = (int*)malloc(sizeof(int));
     int s, d;
@@ -183,17 +186,18 @@ int main(void)
                 textgenerator(triangles, sdlRenderer, 9);
                             
                 gameprogress(triangles, 9);
-                if (!opbeginattack && oppinit(triangles, opsrc, opdest))
+                if (!opbeginattack && oppinit(triangles, opsrc, opdest) && !(potion.stopattack))
                 {
                     s = *opsrc;
                     d = *opdest;
                     opbeginattack = 1;
-                    opsoldiers = (soldier*) malloc(sizeof(soldier) * 100);
+                    opsoldiers = (soldier*) malloc(sizeof(soldier) * 200);
                     opattackongoing = 1;
                     opattackinit = 0;
                     opp.opattacksoldiernum = (triangles + s)->soldiernum;
                     (triangles + s)->soldiernum = 0;
                     (triangles + s)->counter = 0;
+                    q = 0;
                 }
                 if (opattackongoing)
                 {
@@ -203,20 +207,21 @@ int main(void)
                         (((triangles + d)->center.y - (triangles + s)->center.y) * ((triangles + d)->center.y - (triangles + s)->center.y))) );
                         *opsin = ((triangles + d)->center.y - (triangles + s)->center.y) / sqrt( ((((triangles + d)->center.x - (triangles + s)->center.x) * ((triangles + d)->center.x - (triangles + s)->center.x)) + 
                         (((triangles + d)->center.y - (triangles + s)->center.y) * ((triangles + d)->center.y - (triangles + s)->center.y))) );
-                        for (int i = 0; i < opp.opattacksoldiernum; i++)
+                        if (q == 0)
                         {
-                            (opsoldiers + i)->x = (triangles + s)->center.x;
-                            (opsoldiers + i)->y = (triangles + s)->center.y;
-                            (opsoldiers + i)->color = 0xff663300;
-                            (opsoldiers + i)->r = 10;
+                        for (int j = 0; j < opp.opattacksoldiernum; j++)
+                        {
+                            (opsoldiers + j)->x = (triangles + s)->center.x;
+                            (opsoldiers + j)->y = (triangles + s)->center.y;
+                            (opsoldiers + j)->color = 0xff663300;
+                            (opsoldiers + j)->r = 10;
                         }
-                        for (int i = 0; i < opp.opattacksoldiernum ; i++)
+                        }
+                    //    for (int i = 0; i < opp.opattacksoldiernum ; i++)
+                        if (q < opp.opattacksoldiernum)
                         {
-                            // drawmap(triangles, sdlRenderer);
-                            // drawcastle(triangles, 9, sdlRenderer);
                             textgenerator(triangles, sdlRenderer, 9);
-                                                
-                            for (int j = 0; j < i; j++)
+                            for (int j = 0; j < q; j++)
                             {
                                 if (((opsoldiers + j)->x <= (triangles + d)->center.x - 10 || (opsoldiers + j)->x >= (triangles + d)->center.x + 10) &&
                                 ((opsoldiers + j)->y <= (triangles + d)->center.y - 10 || (opsoldiers + j)->y >= (triangles + d)->center.y + 10))
@@ -226,11 +231,11 @@ int main(void)
                                     (opsoldiers + j)->y += (*opsin) * 20;
                                 }
                             }
-                        
-                            SDL_RenderPresent(sdlRenderer);
-                            SDL_Delay(1000 / FPS);
+                        //    SDL_RenderPresent(sdlRenderer);
+                        //    SDL_Delay(1000 / FPS);
+                        q++;
                         }
-                        opattackinit = 1;
+                        else if (q == opp.opattacksoldiernum) { opattackinit = 1; }
                     }
                     opattackongoing = 0;
                     if (((opsoldiers + opp.opattacksoldiernum - 1)->x <= (triangles + d)->center.x - 10 || 
@@ -238,20 +243,20 @@ int main(void)
                         ((opsoldiers + opp.opattacksoldiernum - 1)->y <= (triangles + d)->center.y - 10 || 
                         (opsoldiers + opp.opattacksoldiernum - 1)->y >= (triangles + d)->center.y + 10))
                         opattackongoing = 1;
-                    if (opattackongoing)
+                    if (opattackongoing && opattackinit) 
                         {
-                            for ( int i = 0; i < opp.opattacksoldiernum; i++)
+                            for ( int j = 0; j < opp.opattacksoldiernum; j++)
                             {
-                                if (((opsoldiers + i)->x <= (triangles + d)->center.x - 10 || (opsoldiers + i)->x >= (triangles + d)->center.x + 10) &&
-                                    ((opsoldiers + i)->y <= (triangles + d)->center.y - 10 || (opsoldiers + i)->y >= (triangles + d)->center.y + 10))
+                                if (((opsoldiers + j)->x <= (triangles + d)->center.x - 10 || (opsoldiers + j)->x >= (triangles + d)->center.x + 10) &&
+                                    ((opsoldiers + j)->y <= (triangles + d)->center.y - 10 || (opsoldiers + j)->y >= (triangles + d)->center.y + 10))
                                     {
-                                        filledCircleColor(sdlRenderer,(opsoldiers + i)->x, (opsoldiers + i)->y, (opsoldiers + i)->r, (opsoldiers + i)->color );
-                                        (opsoldiers + i)->x += (*opcos) * 20;
-                                        (opsoldiers + i)->y += (*opsin) * 20;
+                                        filledCircleColor(sdlRenderer,(opsoldiers + j)->x, (opsoldiers + j)->y, (opsoldiers + j)->r, (opsoldiers + j)->color );
+                                        (opsoldiers + j)->x += (*opcos) * 20;
+                                        (opsoldiers + j)->y += (*opsin) * 20;
                                     }
                             }   
                         }
-                        else
+                        else if (!opattackongoing)
                         {
                             free(opsoldiers);
                             *opsrc = 0;
@@ -310,15 +315,14 @@ int main(void)
                 if (!flag)
                 {
                     createpotion(&potion);
-                    potioncoordinator(&potion);
                 }
-                if (potion.type && potioncounter < 100)
+                if (potion.type && potioncounter < 150 && !potion.flag)
                 {
                     flag =  1;
                     potionrenderer(&potion, sdlRenderer);
                     potioncounter++;
                 }
-                if (flag == 1 && potioncounter == 50)
+                if (flag && potioncounter == 150 && !potion.flag)
                 {
                     flag = 0;
                     potion.type = 0;
@@ -326,7 +330,7 @@ int main(void)
                 }
 
                 SDL_RenderPresent(sdlRenderer);
-                SDL_Delay(1000 / FPS);
+            //    SDL_Delay(1000 / FPS);
                 SDL_Event sdlEvent; 
                 
                 if (destination.x && origin.x && Mouse.src >= 0 &&
@@ -350,9 +354,9 @@ int main(void)
                 {  
                     if (initializeattack == 0)
                     {                 
-                        *cos = (destination.x - origin.x) / sqrt( ((destination.x - origin.x) * (destination.x - origin.x)) + 
+                        *cos = (potion.r) * (destination.x - origin.x) / sqrt( ((destination.x - origin.x) * (destination.x - origin.x)) + 
                         ((destination.y - origin.y) * (destination.y - origin.y)) );
-                        *sin = (destination.y - origin.y) / sqrt( ((destination.x - origin.x) * (destination.x - origin.x)) + 
+                        *sin = (potion.r) * (destination.y - origin.y) / sqrt( ((destination.x - origin.x) * (destination.x - origin.x)) + 
                         ((destination.y - origin.y) * (destination.y - origin.y)) );
                     for (int i = 0; i < (triangles + Mouse.src)->attacksoldiernum; i++)
                     {
@@ -363,8 +367,6 @@ int main(void)
                     }
                     for (int i = 0; i < (triangles + Mouse.src)->attacksoldiernum; i++)
                     {
-                        // drawmap(triangles, sdlRenderer);
-                        // drawcastle(triangles, 9, sdlRenderer);
                         textgenerator(triangles, sdlRenderer, 9);
                                         
                         for (int j = 0; j < i; j++)
@@ -377,6 +379,13 @@ int main(void)
                                 (((triangles + Mouse.src)->soldiers) + j)->y += (*sin) * 20;
                             }
                         }
+                        if (hitpotion(((triangles + Mouse.src)->soldiers + 0), &potion) && !potion.flag)
+                                {
+                                    flag = 1;
+                                    potion.counter = 0;
+                                    potion.flag = 1;
+                                    potioninit(&potion);
+                                } 
                         SDL_RenderPresent(sdlRenderer);
                         SDL_Delay(1000 / FPS);
                     }
@@ -398,7 +407,15 @@ int main(void)
                             filledCircleColor(sdlRenderer,(((triangles + Mouse.src)->soldiers) + i)->x, (((triangles + Mouse.src)->soldiers) + i)->y, (((triangles + Mouse.src)->soldiers) + i)->r, (((triangles + Mouse.src)->soldiers) + i)->color );
                             (((triangles + Mouse.src)->soldiers) + i)->x += (*cos) * 20;
                             (((triangles + Mouse.src)->soldiers) + i)->y += (*sin) * 20;
+                            
                         }
+                    }
+                    if (hitpotion(((triangles + Mouse.src)->soldiers + 0), &potion) && !potion.flag)
+                    {
+                        flag = 1;
+                        potion.counter = 0;
+                        potion.flag = 1;
+                        potioninit(&potion);
                     }
                 }
                 else 
@@ -451,6 +468,18 @@ int main(void)
                     }
                 Mouse.dest = -1;
                 destination.x = 0;
+                }
+                if (potion.flag && (potion.counter < potion.countmax))
+                {
+                    potion.counter ++;
+                    potiontime(sdlRenderer, &potion);
+                }
+                if (potion.counter == potion.countmax)
+                {
+                    flag = 0;
+                    potion.flag = 0;
+                    potioncounter = 0;
+                    potionquit(&potion);
                 }
                 SDL_RenderPresent(sdlRenderer);
                 SDL_Delay(1000 / FPS);
