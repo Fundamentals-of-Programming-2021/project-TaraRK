@@ -16,20 +16,6 @@ void randoms ()
 {
     srand((unsigned)time(&t2));
 }
-typedef struct triangle
-{
-    SDL_Point p1, p2, p3;
-    SDL_Point center;
-    int soldiernum;
-    Uint32 background;
-    SDL_Rect number;
-    SDL_Surface* surfaceMessage;
-    SDL_Texture* Message;
-    char numstr [5];
-    long long int counter;
-    int flag;
-} triangle;
-
 typedef struct soldier 
 {
     Sint16 x;
@@ -37,6 +23,36 @@ typedef struct soldier
     Sint16 r;
     Uint32 color;
 }soldier;
+// typedef struct attack
+// {
+//     int beginattack = 0;
+//     int initializeattack = 0;
+//     int attackongoing = 0;
+//     int attackvalidation = 0;
+//     double* cos; 
+//     double* sin; 
+// }attack;
+typedef struct triangle
+{
+    SDL_Point p1, p2, p3;
+    SDL_Point center;
+    int soldiernum;
+    int attacksoldiernum;
+    Uint32 background;
+    SDL_Rect number;
+    SDL_Surface* surfaceMessage;
+    SDL_Texture* Message;
+    char numstr [5];
+    long long int counter;
+    int flag;
+    soldier* soldiers;
+    int attack;
+} triangle;
+
+typedef struct opponent
+{
+    int opattacksoldiernum;
+}opponent;
 
 typedef struct potion
 {
@@ -131,6 +147,8 @@ void initialize(triangle* triangles)
     for (int i = 0; i < 9; i ++)
     {
         (triangles + i)->flag = 0;
+        (triangles + i)->attacksoldiernum = 0;
+        (triangles + i)->soldiers = NULL;
         if (i % 3 == 1)
         {
             (triangles + i)->background = 0x099999ff;
@@ -263,138 +281,153 @@ void gameprogress (triangle* triangles, int n)
             }         
         }
 }
-void opponentplay(triangle* triangles, SDL_Renderer* sdlRenderer)
+int oppinit(triangle* triangles, int* opsrc, int* opdest)
 {
     int a = rand();
     if (a % 50 == 0 )
+    {
+        *opsrc = rand() % 9;
+        while ( (triangles + *opsrc)->flag || (triangles + *opsrc)->background == 0xff808080 )
         {
-            int* opsrc = (int*)malloc(sizeof(int));
-            *opsrc = 0;
-            while ( (triangles + *opsrc)->flag || (triangles + *opsrc)->background == 0xff808080 )
-            {
-                *opsrc = rand() % 9;
-            }
-            int* opdest = (int*)malloc(sizeof(int));
-            *opdest = rand() % 9;
-        //    soldier* opsoldiers = (soldier*)malloc(sizeof(soldier) * (triangles + *opsrc)->soldiernum);
-            if ((triangles + *opsrc)->soldiernum != 0)
-            {
-            soldier* opsoldiers = (soldier*)malloc(sizeof(soldier) * 200);
-            double* cos = (double*)malloc(sizeof(double));
-            *cos = ((triangles + *opdest)->center.x - (triangles + *opsrc)->center.x) / sqrt( ((((triangles + *opdest)->center.x - (triangles + *opsrc)->center.x) * ((triangles + *opdest)->center.x - (triangles + *opsrc)->center.x)) + 
-                    (((triangles + *opdest)->center.y - (triangles + *opsrc)->center.y) * ((triangles + *opdest)->center.y - (triangles + *opsrc)->center.y))) );
-            double* sin = (double*)malloc(sizeof(double));
-            *sin = ((triangles + *opdest)->center.y - (triangles + *opsrc)->center.y) / sqrt( ((((triangles + *opdest)->center.x - (triangles + *opsrc)->center.x) * ((triangles + *opdest)->center.x - (triangles + *opsrc)->center.x)) + 
-                    (((triangles + *opdest)->center.y - (triangles + *opsrc)->center.y) * ((triangles + *opdest)->center.y - (triangles + *opsrc)->center.y))) );
-            for (int i = 0; i < (triangles + *opsrc)->soldiernum; i++)
-                {
-                    (opsoldiers + i)->x = (triangles + *opsrc)->center.x;
-                    (opsoldiers + i)->y = (triangles + *opsrc)->center.y;
-                    (opsoldiers + i)->color = 0xff663300;
-                    (opsoldiers + i)->r = 10;
-                }
-            for (int i = 0; i < (triangles + *opsrc)->soldiernum; i++)
-            {
-               drawmap(triangles, sdlRenderer);
-               drawcastle(triangles, 9, sdlRenderer);
-               textgenerator(triangles, sdlRenderer, 9);
-                                         
-                for (int j = 0; j < i; j++)
-                {
-                    if (((opsoldiers + j)->x <= (triangles + *opdest)->center.x - 10 || (opsoldiers + j)->x >= (triangles + *opdest)->center.x + 10) &&
-                    ((opsoldiers + j)->y <= (triangles + *opdest)->center.y - 10 || (opsoldiers + j)->y >= (triangles + *opdest)->center.y + 10))
-                        {
-                        filledCircleColor(sdlRenderer,(opsoldiers + j)->x, (opsoldiers + j)->y, (opsoldiers + j)->r, (opsoldiers + j)->color );
-                        (opsoldiers + j)->x += (*cos) * 20;
-                        (opsoldiers + j)->y += (*sin) * 20;
-                        }
-                }
-                SDL_RenderPresent(sdlRenderer);
-                SDL_Delay(1000 / FPS);
-            }
-                                while( ((opsoldiers + (triangles + *opsrc)->soldiernum - 1)->x <= (triangles + *opdest)->center.x - 10 || 
-                                        (opsoldiers + (triangles + *opsrc)->soldiernum - 1)->x >= (triangles + *opdest)->center.x + 10) &&
-                                        ((opsoldiers + (triangles + *opsrc)->soldiernum - 1)->y <= (triangles + *opdest)->center.y - 10 || 
-                                        (opsoldiers + (triangles + *opsrc)->soldiernum - 1)->y >= (triangles + *opdest)->center.y + 10))
-                                    {
-                                        drawmap(triangles, sdlRenderer);
-                                        drawcastle(triangles, 9, sdlRenderer);
-                                        textgenerator(triangles, sdlRenderer, 9);
-                                        for ( int i = 0; i < (triangles + *opsrc)->soldiernum; i++)
-                                        {
-                                            if (((opsoldiers + i)->x <= (triangles + *opdest)->center.x - 10 || (opsoldiers + i)->x >= (triangles + *opdest)->center.x + 10) &&
-                                                ((opsoldiers + i)->y <= (triangles + *opdest)->center.y - 10 || (opsoldiers + i)->y >= (triangles + *opdest)->center.y + 10))
-                                            {
-                                                filledCircleColor(sdlRenderer,(opsoldiers + i)->x, (opsoldiers + i)->y, (opsoldiers + i)->r, (opsoldiers + i)->color );
-                                                (opsoldiers + i)->x += (*cos) * 20;
-                                                (opsoldiers + i)->y += (*sin) * 20;
-                                            }
-                                        }
-                                        SDL_RenderPresent(sdlRenderer);
-                                        SDL_Delay(1000 / FPS);
-                                    }
-                                free(opsoldiers);
-                                free(cos);
-                                free(sin);
-                                int* temp = (int*)malloc(sizeof(int));
-                                *temp = (triangles + *opsrc)->soldiernum;
-                                (triangles + *opsrc)->soldiernum = 0;
-                                (triangles + *opsrc)->counter = 0;
-                                if ((triangles + *opdest)->flag)
-                                {
-                                    if ((triangles + *opdest)->soldiernum >= *temp)
-                                    {
-                                        (triangles + *opdest)->soldiernum -= *temp;
-                                        (triangles + *opdest)->counter = (triangles + *opdest)->soldiernum * 15;
-                                    }
-                                    else
-                                    {
-                                        (triangles + *opdest)->soldiernum = *temp - (triangles + *opdest)->soldiernum;
-                                        (triangles + *opdest)->counter = (triangles + *opdest)->soldiernum * 15;
-                                        (triangles + *opdest)->flag = 0;
-                                        if ((triangles + *opdest)->soldiernum < 10)
-                                            (triangles + *opdest)->background = 0x09ffcc99;
-                                        else if ((triangles + *opdest)->soldiernum < 30)
-                                            (triangles + *opdest)->background = 0xf0ffcc99;
-                                        else
-                                            (triangles + *opdest)->background = 0xffffcc99;
-                                    }
-                                }
-                                else if ((triangles + *opdest)->background == 0xff808080) 
-                                {
-                                    if ((triangles + *opdest)->soldiernum >= *temp)
-                                    {
-                                        (triangles + *opdest)->soldiernum -= *temp;
-                                        (triangles + *opdest)->counter = (triangles + *opdest)->soldiernum * 15;
-                                    }
-                                    else
-                                    {
-                                        (triangles + *opdest)->soldiernum = *temp - (triangles + *opdest)->soldiernum;
-                                        (triangles + *opdest)->counter = (triangles + *opdest)->soldiernum * 15;
-                                        if ((triangles + *opdest)->soldiernum < 10)
-                                            (triangles + *opdest)->background = 0x09ffcc99;
-                                        else if ((triangles + *opdest)->soldiernum < 30)
-                                            (triangles + *opdest)->background = 0xf0ffcc99;
-                                        else
-                                            (triangles + *opdest)->background = 0xffffcc99;
-                                    }
-                                }
-                                else
-                                {
-                                    (triangles + *opdest)->soldiernum += *temp;
-                                    (triangles + *opdest)->counter = (triangles + *opdest)->soldiernum * 15; 
-                                }
-                                drawmap(triangles, sdlRenderer);
-                                drawcastle(triangles, 9, sdlRenderer);
-                                textgenerator(triangles, sdlRenderer, 9);
-                                SDL_RenderPresent(sdlRenderer);
-                                SDL_Delay(1000 / FPS);
-                                free(temp);
-                                free(opdest);
-                                free(opsrc);
-                            }
+            *opsrc = rand() % 9;
         }
+        *opdest = rand() % 9;
+        if ((triangles + *opsrc)->soldiernum != 0)
+            return 1;
+        else
+            return 0;
+    }
+    else
+        return 0;
 }
+// void initeattack(attack* attack)
+// {
+//     attack->beginattack = 0;
+//     attack->attackvalidation = 0;
+//     attack->attackongoing = 0;
+//     attack->initializeattack = 0;
+//     attack->cos = (double*)malloc(sizeof(double));
+//     attack->sin = (double*)malloc(sizeof(double));
+// }
+// void attackk(attack* attack, triangle* triangles, SDL_Renderer* sdlRenderer, mouse Mouse, dest* destination, dest* origin)
+// {
+//     if (attack->attackvalidation) 
+//                 {
+//                     (triangles + Mouse.src)->attacksoldiernum = (triangles + Mouse.src)->soldiernum;
+//                     (triangles + Mouse.src)->soldiers = (soldier*) malloc(sizeof(soldier) * 100);
+//                     attack->attackvalidation = 0;
+//                     attack->attackongoing = 1;
+//                     attack->initializeattack = 0;
+//                     (triangles + Mouse.src)->soldiernum = 0;
+//                     (triangles + Mouse.src)->counter = 0;
+//                 }
+//                 if (attack->attackongoing)
+//                 {  
+//                     if (attack->initializeattack == 0)
+//                     {                 
+//                         *attack->cos = (destination.x - origin.x) / sqrt( ((destination.x - origin.x) * (destination.x - origin.x)) + 
+//                         ((destination.y - origin.y) * (destination.y - origin.y)) );
+//                         *attack->sin = (destination.y - origin.y) / sqrt( ((destination.x - origin.x) * (destination.x - origin.x)) + 
+//                         ((destination.y - origin.y) * (destination.y - origin.y)) );
+//                     for (int i = 0; i < (triangles + Mouse.src)->attacksoldiernum; i++)
+//                     {
+//                         (((triangles + Mouse.src)->soldiers) + i)->x = origin.x;
+//                         (((triangles + Mouse.src)->soldiers) + i)->y = origin.y;
+//                         (((triangles + Mouse.src)->soldiers) + i)->color = 0xff000099;
+//                         (((triangles + Mouse.src)->soldiers) + i)->r = 10;
+//                     }
+//                     for (int i = 0; i < (triangles + Mouse.src)->attacksoldiernum; i++)
+//                     {
+//                         // drawmap(triangles, sdlRenderer);
+//                         // drawcastle(triangles, 9, sdlRenderer);
+//                         textgenerator(triangles, sdlRenderer, 9);
+                                        
+//                         for (int j = 0; j < i; j++)
+//                         {
+//                             if (((((triangles + Mouse.src)->soldiers) + j)->x <= destination.x - 10 || (((triangles + Mouse.src)->soldiers) + j)->x >= destination.x + 10) &&
+//                                 ((((triangles + Mouse.src)->soldiers) + j)->y <= destination.y - 10 || (((triangles + Mouse.src)->soldiers) + j)->y >= destination.y + 10))
+//                             {
+//                                 filledCircleColor(sdlRenderer,(((triangles + Mouse.src)->soldiers) + j)->x, (((triangles + Mouse.src)->soldiers) + j)->y, (((triangles + Mouse.src)->soldiers) + j)->r, (((triangles + Mouse.src)->soldiers) + j)->color );
+//                                 (((triangles + Mouse.src)->soldiers) + j)->x += (*cos) * 20;
+//                                 (((triangles + Mouse.src)->soldiers) + j)->y += (*sin) * 20;
+//                             }
+//                         }
+//                         SDL_RenderPresent(sdlRenderer);
+//                         SDL_Delay(1000 / FPS);
+//                     }
+//                     attack->initializeattack = 1;
+//                     }
+//                 attack->attackongoing = 0;
+//                 if ( ((((triangles + Mouse.src)->soldiers) + ((triangles + Mouse.src)->attacksoldiernum) - 1)->x <= destination.x - 10 || 
+//                     (((triangles + Mouse.src)->soldiers) + ((triangles + Mouse.src)->attacksoldiernum) - 1)->x >= destination.x + 10 ) &&
+//                     ((((triangles + Mouse.src)->soldiers) + ((triangles + Mouse.src)->attacksoldiernum) - 1)->y <= destination.y - 10 || 
+//                     (((triangles + Mouse.src)->soldiers) + ((triangles + Mouse.src)->attacksoldiernum) - 1)->y >= destination.y + 10))
+//                     attack->attackongoing = 1;
+//                 if (attack->attackongoing)
+//                 {
+//                     for ( int i = 0; i < (triangles + Mouse.src)->attacksoldiernum; i++)
+//                     {
+//                         if (((((triangles + Mouse.src)->soldiers) + i)->x <= destination.x - 10 || (((triangles + Mouse.src)->soldiers) + i)->x >= destination.x + 10) &&
+//                         ((((triangles + Mouse.src)->soldiers) + i)->y <= destination.y - 10 || (((triangles + Mouse.src)->soldiers) + i)->y >= destination.y + 10))
+//                         {
+//                             filledCircleColor(sdlRenderer,(((triangles + Mouse.src)->soldiers) + i)->x, (((triangles + Mouse.src)->soldiers) + i)->y, (((triangles + Mouse.src)->soldiers) + i)->r, (((triangles + Mouse.src)->soldiers) + i)->color );
+//                             (((triangles + Mouse.src)->soldiers) + i)->x += (*(attack->cos)) * 20;
+//                             (((triangles + Mouse.src)->soldiers) + i)->y += (*(attack->sin)) * 20;
+//                         }
+//                     }
+//                 }
+//                 else 
+//                 {
+//                     origin.x = 0;
+//                     destination.x = 0;
+//                     free(((triangles + Mouse.src)->soldiers));
+//                     attack->attackvalidation = 0;
+//                     attack->attackongoing = 0;
+//                     attack->beginattack = 0;
+//                 }             
+//                 }
+//                 if (Mouse.src >= 0 && Mouse.dest >= 0 && Mouse.src != Mouse.dest && !attack->beginattack)
+//                 {
+//                     if ((triangles + Mouse.dest)->flag)
+//                     {
+//                         int temp = (triangles + Mouse.src)->attacksoldiernum;
+//                         // (triangles + Mouse.src)->soldiernum = 0;
+//                         // (triangles + Mouse.src)->counter = 0;
+//                         (triangles + Mouse.dest)->soldiernum += temp;
+//                         (triangles + Mouse.dest)->counter += temp * 15;
+//                         Mouse.src = -1;
+//                         Mouse.dest = -1;
+//                     }
+//                     else 
+//                     {
+//                         if ( (triangles + Mouse.dest)->soldiernum >= (triangles + Mouse.src)->attacksoldiernum)
+//                         {
+//                             (triangles + Mouse.dest)->soldiernum -= (triangles + Mouse.src)->attacksoldiernum;
+//                             (triangles + Mouse.dest)->counter -= (triangles + Mouse.src)->attacksoldiernum * 15;
+//                             // (triangles + Mouse.src)->soldiernum = 0;
+//                             // (triangles + Mouse.src)->counter = 0;
+//                             Mouse.src = -1;
+//                         }
+//                         else 
+//                         {
+//                             (triangles + Mouse.dest)->flag = 1;
+//                             (triangles + Mouse.dest)->soldiernum = (triangles + Mouse.src)->attacksoldiernum - (triangles + Mouse.dest)->soldiernum;
+//                             if ( (triangles + Mouse.dest)->soldiernum < 10 )
+//                                 (triangles + Mouse.dest)->background = 0x099999ff;
+//                             else if ((triangles + Mouse.dest)->soldiernum > 10 && (triangles + Mouse.dest)->soldiernum < 30)
+//                                 (triangles + Mouse.dest)->background = 0x909999ff;
+//                             else
+//                                 (triangles + Mouse.dest)->background = 0xff9999ff;
+//                                 (triangles + Mouse.dest)->counter = (triangles + Mouse.dest)->soldiernum * 15;
+//                                 // (triangles + Mouse.src)->soldiernum = 0;
+//                                 // (triangles + Mouse.src)->counter = 0;
+//                                 Mouse.src = -1;
+//                         }
+//                     }
+//                 Mouse.dest = -1;
+//                 destination.x = 0;
+//                 }
+// }
 
 //Potion Functions
 void potioncoordinator (potion* potion)
@@ -449,3 +482,17 @@ void createpotion (potion* potion)
         potion->type = a;
     }
 }
+void potiontest(potion* potion, SDL_Renderer* renderer)
+{
+    IMG_Init(IMG_INIT_JPG);
+    SDL_Surface* surface = IMG_Load("/home/tara/Desktop/project/1.jpg");
+    SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_RenderCopy(renderer, text, NULL, &potion->rect);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(text);
+    IMG_Quit();
+}
+
+
+
+
