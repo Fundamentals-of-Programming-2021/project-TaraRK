@@ -65,6 +65,7 @@ typedef struct potion
     int stopattack;
     int r;
     int rgameprogress;
+    int attack;
 } potion;
 // typedef struct ellipse
 // {
@@ -271,7 +272,7 @@ void drawmap(triangle* triangles, SDL_Renderer* renderer)
     }
 }
 // Game functions
-void gameprogress (triangle* triangles, int n)
+void gameprogress (triangle* triangles, int n, int a)
 {
     for (int i = 0; i < n; i++)
         {
@@ -281,23 +282,39 @@ void gameprogress (triangle* triangles, int n)
                     (triangles + i)->background += 0x01000000;
                 if ((triangles + i)->soldiernum < 50)
                 {
-                    (triangles + i)->counter ++;
-                    (triangles + i)->soldiernum = (triangles + i)->counter / 15;
+                    if ((triangles + i)->flag)
+                    {
+                        (triangles + i)->counter ++;
+                        (triangles + i)->soldiernum = (triangles + i)->counter / a;
+
+                    }
+                    else 
+                    {
+                        (triangles + i)->counter ++;
+                        (triangles + i)->soldiernum = (triangles + i)->counter / 15;
+                    }
                 }                
             }         
         }
 }
-int oppinit(triangle* triangles, int* opsrc, int* opdest)
+int oppinit(triangle* triangles,int n, int* opsrc, int* opdest, potion* potion)
 {
     int a = rand();
     if (a % 50 == 0 )
     {
-        *opsrc = rand() % 9;
+        *opsrc = rand() % n;
         while ( (triangles + *opsrc)->flag || (triangles + *opsrc)->background == 0xff808080 )
         {
-            *opsrc = rand() % 9;
+            *opsrc = rand() % n;
         }
-        *opdest = rand() % 9;
+        *opdest = rand() % n;
+        if ( !(potion->attack))
+        {
+            while ((triangles + *opdest)->flag)
+            {
+                *opdest = rand() % n;
+            }
+        }
         if ((triangles + *opsrc)->soldiernum != 0)
             return 1;
         else
@@ -542,14 +559,16 @@ void potioninit(potion* potion)
         case 1 : // stops from moving
             potion->stopattack = 1;
             break;
-        case 2 :
+        case 2 : // increases soldier speed
             potion->r = 1.5;
             break;
-        case 3 :
+        case 3 : //increases soldier creation rate
             potion->rgameprogress = 10;
             break;
-        case 4 :
+        case 4 : // stops from attacking
+            potion->attack = 0;
             break;
+
     }
 }
 // void potiontext (potion* potion, SDL_Renderer* renderer)
@@ -567,9 +586,10 @@ void potionquit (potion* potion)
             potion->r = 1;
             break;
         case 3 :
-            potion->rgameprogress = 0;
+            potion->rgameprogress = 15;
             break;
         case 4 :
+            potion->attack = 1;
             break;
     }
 }

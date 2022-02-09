@@ -163,8 +163,8 @@ int main(void)
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 
                                                    SDL_RENDERER_PRESENTVSYNC | 
                                                    SDL_RENDERER_ACCELERATED);
-    int potioncounter = 0; int flag = 0; int destcleaner = 0; potion.stopattack = 0;
-    potion.r = 1;
+    int potioncounter = 0; int flag = 0; int destcleaner = 0; potion.stopattack = 0; potion.rgameprogress = 15;
+    potion.r = 1; potion.attack = 1;
     int* opsrc = (int*)malloc(sizeof(int));
     int* opdest = (int*)malloc(sizeof(int));
     int s, d;
@@ -185,8 +185,8 @@ int main(void)
                 drawcastle(triangles, 9, sdlRenderer);
                 textgenerator(triangles, sdlRenderer, 9);
                             
-                gameprogress(triangles, 9);
-                if (!opbeginattack && oppinit(triangles, opsrc, opdest) && !(potion.stopattack))
+                gameprogress(triangles, 9, potion.rgameprogress);
+                if (!opbeginattack && oppinit(triangles, 9, opsrc, opdest, &potion) && !(potion.stopattack))
                 {
                     s = *opsrc;
                     d = *opdest;
