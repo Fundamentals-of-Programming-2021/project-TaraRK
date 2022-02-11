@@ -49,10 +49,10 @@ void getusername(SDL_Renderer * renderer, char* username)
 {
     SDL_bool shallExit = SDL_FALSE;
     char character;
-    int width,height;
+    mouse mouse;
     while(shallExit == SDL_FALSE)
     {
-        int userlenght = strlen(username);
+        int l = strlen(username);
         SDL_SetRenderDrawColor(renderer, 0x33, 0x00, 0x66, 0xff);
         SDL_RenderClear(renderer);
         textmaker(renderer, 600, 300, username);
@@ -66,17 +66,15 @@ void getusername(SDL_Renderer * renderer, char* username)
                       shallExit = SDL_TRUE;
                      break;
                      case SDL_MOUSEBUTTONDOWN:
-                       width = sdlEvent.button.x;
-                       height = sdlEvent.button.y;
+                       mouse.x = sdlEvent.button.x;
+                       mouse.y = sdlEvent.button.y;
                      break;
                      case SDL_KEYUP:
                             switch(sdlEvent.key.keysym.sym)
                             {
                                   case SDLK_RETURN:
-                                  if(userlenght > 0)
-                                  {
+                                  if(l > 0)
                                       return;
-                                  }
                                  break;
                                  case SDLK_SPACE:
                                  character = ' ';
@@ -86,11 +84,11 @@ void getusername(SDL_Renderer * renderer, char* username)
                                  character = '\0';
                                  break;
 
-                                case SDLK_DOWN:
+                                case SDLK_RIGHT:
                                  character = '\0';
                                  break;
 
-                                case SDLK_RIGHT:
+                                case SDLK_DOWN:
                                  character = '\0';
                                  break;
 
@@ -99,18 +97,20 @@ void getusername(SDL_Renderer * renderer, char* username)
                                  break;
                                  case SDLK_BACKSPACE:
                                   character = ' ';
-                                  if(userlenght > 1)
-                                  username[userlenght - 1] = '\0';
+                                  if(l > 1)
+                                  username[l - 1] = '\0';
                                  break;
                                  default:
                                        character = sdlEvent.key.keysym.sym;                        
                                  break;
 
                             }
-                            if(userlenght <= 13 && (character >= '0' && character <= '9') || (character >= 'A' && character <= 'Z') || (character >= 'a' && character <= 'z') )
+                            if(l <= 13 && (character >= '0' && character <= '9') ||
+                            (character >= 'A' && character <= 'Z') || 
+                            (character >= 'a' && character <= 'z') )
                             {
-                                username[userlenght] = character;
-                                username[userlenght+1] = '\0';
+                                username[l] = character;
+                                username[l + 1] = '\0';
                             }
                      break;
                 }
@@ -118,7 +118,7 @@ void getusername(SDL_Renderer * renderer, char* username)
     }
 }
 
-void sort_usernames(char *new_username, player* participants, int n)
+void sortusernames(char *new_username, player* participants, int n)
 {
     FILE* f1;
     FILE* f2;
@@ -224,27 +224,27 @@ void swap(player *xp, player *yp)
     *yp = temp;
 }
 
-void show_leaderboard(SDL_Renderer * sdlRenderer,const int SCREEN_WIDTH,const int SCREEN_HEIGHT)
+void rankings(SDL_Renderer * sdlRenderer,const int SCREEN_WIDTH,const int SCREEN_HEIGHT)
 {
     SDL_bool shallExit = SDL_FALSE;
     while(shallExit == SDL_FALSE)
     {
+        char names[20];
+        int totalusers = 0;
         SDL_SetRenderDrawColor(sdlRenderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(sdlRenderer);
         FILE* f1;
         f1 = fopen("wholename.txt", "r");
         FILE* f2;
         f2 = fopen("wholename.txt", "r");
-        char names[20];
-        int total_users = 0;
         while (fscanf(f1, "%[^\n]%*c", names) != EOF)
         {
-            total_users++;
+            totalusers++;
         }
         fclose(f1);
         int i = 0;
         int height = 45;
-        while (fscanf(f2, "%[^\n]%*c", names) != EOF && (i < total_users && i < 5))
+        while (fscanf(f2, "%[^\n]%*c", names) != EOF && (i < totalusers && i < 5))
         {
             textmaker(sdlRenderer, 330 , height + 35, names);
             height += 110;

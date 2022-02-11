@@ -121,9 +121,8 @@ void potioninit(potion* potion);
 // Scoarboard Functions
 void textmaker(SDL_Renderer *renderer, int x, int y, char *text);
 void getusername(SDL_Renderer * renderer, char* username);
-void sort_usernames(char *new_username, player* participants, int n);
+void sortusernames(char *new_username, player* participants, int n);
 void load_image(SDL_Renderer * sdlRenderer,char * string,int x0,int y0,int w0,int h0);
-
-void show_leaderboard(SDL_Renderer * sdlRenderer,const int SCREEN_WIDTH,const int SCREEN_HEIGHT);
+void rankings(SDL_Renderer * sdlRenderer,const int SCREEN_WIDTH,const int SCREEN_HEIGHT);
 
 #endif

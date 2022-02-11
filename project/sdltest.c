@@ -54,7 +54,7 @@ int main(void)
     username[strlen(username)] = '\0';
     strcpy(copy_username,username);
 
-    sort_usernames(username,players,0);
+    sortusernames(username,players,0);
     int number = -1;
 
     SDL_bool button = SDL_FALSE;
@@ -79,7 +79,7 @@ int main(void)
             //sorry 
             break;
         case 3 :
-            show_leaderboard(sdlrenderer,SCREEN_WIDTH, SCREEN_WIDTH );
+            rankings(sdlrenderer,SCREEN_WIDTH, SCREEN_WIDTH );
             break;
 
     }
@@ -90,11 +90,13 @@ int main(void)
     }
     if (state == 1)
     {
-
+        sortusernames(copy_username, players, 100);
+        rankings(sdlrenderer,SCREEN_WIDTH, SCREEN_WIDTH );
     }
     else if (state == 2)
     {
-
+        sortusernames(copy_username, players, -50);
+        rankings(sdlrenderer,SCREEN_WIDTH, SCREEN_WIDTH );
     }
 
     
