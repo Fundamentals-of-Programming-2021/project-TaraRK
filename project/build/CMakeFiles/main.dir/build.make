@@ -70,17 +70,107 @@ CMakeFiles/main.dir/sdltest.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/sdltest.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/tara/Desktop/project/sdltest.c -o CMakeFiles/main.dir/sdltest.c.s
 
+CMakeFiles/main.dir/Map.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/Map.c.o: ../Map.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main.dir/Map.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/Map.c.o   -c /home/tara/Desktop/project/Map.c
+
+CMakeFiles/main.dir/Map.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/Map.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/tara/Desktop/project/Map.c > CMakeFiles/main.dir/Map.c.i
+
+CMakeFiles/main.dir/Map.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/Map.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/tara/Desktop/project/Map.c -o CMakeFiles/main.dir/Map.c.s
+
+CMakeFiles/main.dir/Menu.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/Menu.c.o: ../Menu.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/main.dir/Menu.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/Menu.c.o   -c /home/tara/Desktop/project/Menu.c
+
+CMakeFiles/main.dir/Menu.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/Menu.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/tara/Desktop/project/Menu.c > CMakeFiles/main.dir/Menu.c.i
+
+CMakeFiles/main.dir/Menu.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/Menu.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/tara/Desktop/project/Menu.c -o CMakeFiles/main.dir/Menu.c.s
+
+CMakeFiles/main.dir/Potions.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/Potions.c.o: ../Potions.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/main.dir/Potions.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/Potions.c.o   -c /home/tara/Desktop/project/Potions.c
+
+CMakeFiles/main.dir/Potions.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/Potions.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/tara/Desktop/project/Potions.c > CMakeFiles/main.dir/Potions.c.i
+
+CMakeFiles/main.dir/Potions.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/Potions.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/tara/Desktop/project/Potions.c -o CMakeFiles/main.dir/Potions.c.s
+
+CMakeFiles/main.dir/Game_Functions.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/Game_Functions.c.o: ../Game_Functions.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/main.dir/Game_Functions.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/Game_Functions.c.o   -c /home/tara/Desktop/project/Game_Functions.c
+
+CMakeFiles/main.dir/Game_Functions.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/Game_Functions.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/tara/Desktop/project/Game_Functions.c > CMakeFiles/main.dir/Game_Functions.c.i
+
+CMakeFiles/main.dir/Game_Functions.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/Game_Functions.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/tara/Desktop/project/Game_Functions.c -o CMakeFiles/main.dir/Game_Functions.c.s
+
+CMakeFiles/main.dir/Users.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/Users.c.o: ../Users.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/main.dir/Users.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/Users.c.o   -c /home/tara/Desktop/project/Users.c
+
+CMakeFiles/main.dir/Users.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/Users.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/tara/Desktop/project/Users.c > CMakeFiles/main.dir/Users.c.i
+
+CMakeFiles/main.dir/Users.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/Users.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/tara/Desktop/project/Users.c -o CMakeFiles/main.dir/Users.c.s
+
+CMakeFiles/main.dir/Maingame.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/Maingame.c.o: ../Maingame.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/main.dir/Maingame.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/Maingame.c.o   -c /home/tara/Desktop/project/Maingame.c
+
+CMakeFiles/main.dir/Maingame.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/Maingame.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/tara/Desktop/project/Maingame.c > CMakeFiles/main.dir/Maingame.c.i
+
+CMakeFiles/main.dir/Maingame.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/Maingame.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/tara/Desktop/project/Maingame.c -o CMakeFiles/main.dir/Maingame.c.s
+
 # Object files for target main
 main_OBJECTS = \
-"CMakeFiles/main.dir/sdltest.c.o"
+"CMakeFiles/main.dir/sdltest.c.o" \
+"CMakeFiles/main.dir/Map.c.o" \
+"CMakeFiles/main.dir/Menu.c.o" \
+"CMakeFiles/main.dir/Potions.c.o" \
+"CMakeFiles/main.dir/Game_Functions.c.o" \
+"CMakeFiles/main.dir/Users.c.o" \
+"CMakeFiles/main.dir/Maingame.c.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
 main: CMakeFiles/main.dir/sdltest.c.o
+main: CMakeFiles/main.dir/Map.c.o
+main: CMakeFiles/main.dir/Menu.c.o
+main: CMakeFiles/main.dir/Potions.c.o
+main: CMakeFiles/main.dir/Game_Functions.c.o
+main: CMakeFiles/main.dir/Users.c.o
+main: CMakeFiles/main.dir/Maingame.c.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tara/Desktop/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

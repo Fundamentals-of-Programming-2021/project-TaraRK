@@ -1,4 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/main.dir/Game_Functions.c.o"
+  "CMakeFiles/main.dir/Maingame.c.o"
+  "CMakeFiles/main.dir/Map.c.o"
+  "CMakeFiles/main.dir/Menu.c.o"
+  "CMakeFiles/main.dir/Potions.c.o"
+  "CMakeFiles/main.dir/Users.c.o"
   "CMakeFiles/main.dir/sdltest.c.o"
   "main"
   "main.pdb"

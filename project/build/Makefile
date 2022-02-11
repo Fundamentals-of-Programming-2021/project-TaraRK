@@ -123,6 +123,168 @@ main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+Game_Functions.o: Game_Functions.c.o
+
+.PHONY : Game_Functions.o
+
+# target to build an object file
+Game_Functions.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Game_Functions.c.o
+.PHONY : Game_Functions.c.o
+
+Game_Functions.i: Game_Functions.c.i
+
+.PHONY : Game_Functions.i
+
+# target to preprocess a source file
+Game_Functions.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Game_Functions.c.i
+.PHONY : Game_Functions.c.i
+
+Game_Functions.s: Game_Functions.c.s
+
+.PHONY : Game_Functions.s
+
+# target to generate assembly for a file
+Game_Functions.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Game_Functions.c.s
+.PHONY : Game_Functions.c.s
+
+Maingame.o: Maingame.c.o
+
+.PHONY : Maingame.o
+
+# target to build an object file
+Maingame.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Maingame.c.o
+.PHONY : Maingame.c.o
+
+Maingame.i: Maingame.c.i
+
+.PHONY : Maingame.i
+
+# target to preprocess a source file
+Maingame.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Maingame.c.i
+.PHONY : Maingame.c.i
+
+Maingame.s: Maingame.c.s
+
+.PHONY : Maingame.s
+
+# target to generate assembly for a file
+Maingame.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Maingame.c.s
+.PHONY : Maingame.c.s
+
+Map.o: Map.c.o
+
+.PHONY : Map.o
+
+# target to build an object file
+Map.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Map.c.o
+.PHONY : Map.c.o
+
+Map.i: Map.c.i
+
+.PHONY : Map.i
+
+# target to preprocess a source file
+Map.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Map.c.i
+.PHONY : Map.c.i
+
+Map.s: Map.c.s
+
+.PHONY : Map.s
+
+# target to generate assembly for a file
+Map.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Map.c.s
+.PHONY : Map.c.s
+
+Menu.o: Menu.c.o
+
+.PHONY : Menu.o
+
+# target to build an object file
+Menu.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Menu.c.o
+.PHONY : Menu.c.o
+
+Menu.i: Menu.c.i
+
+.PHONY : Menu.i
+
+# target to preprocess a source file
+Menu.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Menu.c.i
+.PHONY : Menu.c.i
+
+Menu.s: Menu.c.s
+
+.PHONY : Menu.s
+
+# target to generate assembly for a file
+Menu.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Menu.c.s
+.PHONY : Menu.c.s
+
+Potions.o: Potions.c.o
+
+.PHONY : Potions.o
+
+# target to build an object file
+Potions.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Potions.c.o
+.PHONY : Potions.c.o
+
+Potions.i: Potions.c.i
+
+.PHONY : Potions.i
+
+# target to preprocess a source file
+Potions.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Potions.c.i
+.PHONY : Potions.c.i
+
+Potions.s: Potions.c.s
+
+.PHONY : Potions.s
+
+# target to generate assembly for a file
+Potions.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Potions.c.s
+.PHONY : Potions.c.s
+
+Users.o: Users.c.o
+
+.PHONY : Users.o
+
+# target to build an object file
+Users.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Users.c.o
+.PHONY : Users.c.o
+
+Users.i: Users.c.i
+
+.PHONY : Users.i
+
+# target to preprocess a source file
+Users.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Users.c.i
+.PHONY : Users.c.i
+
+Users.s: Users.c.s
+
+.PHONY : Users.s
+
+# target to generate assembly for a file
+Users.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Users.c.s
+.PHONY : Users.c.s
+
 sdltest.o: sdltest.c.o
 
 .PHONY : sdltest.o
@@ -159,6 +321,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... main"
+	@echo "... Game_Functions.o"
+	@echo "... Game_Functions.i"
+	@echo "... Game_Functions.s"
+	@echo "... Maingame.o"
+	@echo "... Maingame.i"
+	@echo "... Maingame.s"
+	@echo "... Map.o"
+	@echo "... Map.i"
+	@echo "... Map.s"
+	@echo "... Menu.o"
+	@echo "... Menu.i"
+	@echo "... Menu.s"
+	@echo "... Potions.o"
+	@echo "... Potions.i"
+	@echo "... Potions.s"
+	@echo "... Users.o"
+	@echo "... Users.i"
+	@echo "... Users.s"
 	@echo "... sdltest.o"
 	@echo "... sdltest.i"
 	@echo "... sdltest.s"

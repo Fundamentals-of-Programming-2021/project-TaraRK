@@ -9,60 +9,13 @@
 #include <SDL2/SDL_image.h>
 #include "headers.h"
 // #define true 1;
-// const int FPS = 55;
-// Uint32 background = 0xffe0e0e0;
-// SDL_Color black = {0, 0, 0, 255};
+Uint32 background = 0xffe0e0e0;
+SDL_Color black2 = {0, 0, 0, 255};
 time_t t2;
 void randoms ()
 {
     srand((unsigned)time(&t2));
 }
-// typedef struct soldier 
-// {
-//     Sint16 x;
-//     Sint16 y;
-//     Sint16 r;
-//     Uint32 color;
-// }soldier;
-
-// typedef struct triangle
-// {
-//     SDL_Point p1, p2, p3;
-//     SDL_Point center;
-//     int soldiernum;
-//     int attacksoldiernum;
-//     Uint32 background;
-//     SDL_Rect number;
-//     SDL_Surface* surfaceMessage;
-//     SDL_Texture* Message;
-//     char numstr [5];
-//     long long int counter;
-//     int flag;
-//     soldier* soldiers;
-//     int attack;
-// } triangle;
-
-// typedef struct opponent
-// {
-//     int opattacksoldiernum;
-// }opponent;
-
-// typedef struct potion
-// {
-//     SDL_Rect rect;
-//     SDL_Rect textbox;
-//     int flag;
-//     int type;
-//     int counter;
-//     int countmax;
-//     SDL_Rect time;
-//     int stopattack;
-//     int r;
-//     int rp;
-//     int rgameprogress;
-//     int attack;
-//     int activeforopp;
-// } potion;
 
 void inttostr(int a, char* b)
 {
@@ -90,13 +43,76 @@ void inttostr(int a, char* b)
     b[counter] = '\0';
 }
 
+int choosemap(SDL_Renderer * sdlrenderer)
+{
+    SDL_bool shallExit = SDL_FALSE;
+    mouse mouse;
+    while (shallExit == SDL_FALSE)
+    {
+        SDL_SetRenderDrawColor(sdlrenderer, 0x00, 0x00, 0x00, 0xff);
+        SDL_RenderClear(sdlrenderer);
+        uploadimage(sdlrenderer, "Map1.jpg", 240, 240);
+        uploadimage(sdlrenderer, "Map2.jpg", 760, 240);
+        uploadimage(sdlrenderer, "Map3.jpg", 240, 760);
+        uploadimage(sdlrenderer, "q.jpg", 760, 760);
+        SDL_RenderPresent(sdlrenderer);
+        SDL_Event sdlEvent;
+
+        while(SDL_PollEvent(&sdlEvent))
+        {
+            switch(sdlEvent.type)
+            {
+                case SDL_QUIT:
+                shallExit = SDL_TRUE;
+                break;
+               
+                case SDL_MOUSEBUTTONDOWN:
+                mouse.x = sdlEvent.button.x;
+                mouse.y = sdlEvent.button.y;
+                if (whichmap(&mouse))
+                {
+                    return (whichmap(&mouse));
+                }
+                break;
+               
+            }
+        }
+    }
+}
+int whichmap(mouse* mouse)
+{
+    if (mouse->x >= 240 && mouse->x <= 740 && mouse->y >= 240 && mouse->y <= 740)
+        return 1;
+    else if (mouse->x >= 760 && mouse->x <= 1260 && mouse->y >= 240 && mouse->y <= 740)
+        return 2;
+    else if (mouse->x >= 240 && mouse->x <= 740 && mouse->y >= 760 && mouse->y <= 1260)
+        return 3;
+    else if (mouse->x >= 760 && mouse->x <= 1260 && mouse->y >= 760 && mouse->y <= 1260)
+        return 0;
+    else 
+        return 0;
+}
+void uploadimage(SDL_Renderer* renderer, char* name, int x, int y)
+{
+    SDL_Surface* surface = IMG_Load(name);
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.h = 500;
+    rect.w = 500;
+    SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_RenderCopy(renderer, text, NULL, &rect);
+    SDL_DestroyTexture(text);
+    SDL_FreeSurface(surface);
+
+}
 void textgenerator(triangle* triangles, SDL_Renderer* renderer, int n)
 {
     TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 20);
     for (int i = 0; i < n; i++)
     {
         inttostr((triangles + i)->soldiernum, (triangles + i)->numstr);
-        (triangles + i)->surfaceMessage = TTF_RenderText_Solid(sans, (triangles + i)->numstr, black);
+        (triangles + i)->surfaceMessage = TTF_RenderText_Solid(sans, (triangles + i)->numstr, black2);
         (triangles + i)->Message = SDL_CreateTextureFromSurface(renderer, (triangles + i)->surfaceMessage);
         SDL_RenderCopy(renderer, (triangles + i)->Message, NULL, &((triangles +i)->number));
         SDL_FreeSurface((triangles + i)->surfaceMessage);
@@ -350,282 +366,6 @@ void drawmap(triangle* triangles, SDL_Renderer* renderer)
         thickLineColor(renderer,  2 * ((triangles + i)->p3).x, 2 * ((triangles + i)->p3).y, 2 * ((triangles + i)->p2).x, 2 * ((triangles + i)->p2).y, 7, background);
     }
 }
-// Game functions
-void gameprogress (triangle* triangles, int n, int a, int flag)
-{
-    for (int i = 0; i < n; i++)
-        {
-            if ( (triangles + i)->background != 0xff808080)
-            {
-                if ( (triangles + i)->background != 0xff9999ff && (triangles + i)->background != 0xffffcc99 )
-                    (triangles + i)->background += 0x01000000;
-                if ((triangles + i)->soldiernum < 50)
-                {
-                    if (flag)
-                    {
-                        if ((triangles + i)->flag)
-                        {
-                            (triangles + i)->counter ++;
-                            (triangles + i)->soldiernum = (triangles + i)->counter / 15;
-                        }
-                        else
-                        {
-                            (triangles +i)->counter ++;
-                            (triangles + i)->soldiernum = (triangles + i)->counter / a;
-                        }
-                    }
-                    else
-                    {
-                        if ((triangles + i)->flag)
-                        {
-                            (triangles + i)->counter ++;
-                            (triangles + i)->soldiernum = (triangles + i)->counter / a;
 
-                        }
-                        else 
-                        {
-                            (triangles + i)->counter ++;
-                            (triangles + i)->soldiernum = (triangles + i)->counter / 15;
-                        }
-                    }
-                }                
-            }         
-        }
-}
-int oppinit(triangle* triangles,int n, int* opsrc, int* opdest, potion* potion)
-{
-    int a = rand();
-    if (a % 50 == 0 )
-    {
-        *opsrc = rand() % n;
-        while ( (triangles + *opsrc)->flag || (triangles + *opsrc)->background == 0xff808080 )
-        {
-            *opsrc = rand() % n;
-        }
-        *opdest = rand() % n;
-        if ( !(potion->attack))
-        {
-            while ((triangles + *opdest)->flag)
-            {
-                *opdest = rand() % n;
-            }
-        }
-        if ((triangles + *opsrc)->soldiernum != 0)
-            return 1;
-        else
-            return 0;
-    }
-    else
-        return 0;
-}
-
-//Potion Functions
-
-void potionrenderer (potion* potion, SDL_Renderer* sdlRenderer)
-{
-    if ( IMG_Init(IMG_INIT_JPG) != 0)
-    {
-        printf("%s", IMG_GetError());
-    }
-    SDL_Surface* surface;
-    switch (potion->type)
-    {
-        case 1:
-            surface = IMG_Load("/home/tara/Desktop/project/1.jpg");
-            break;
-        case 2:
-            surface = IMG_Load("/home/tara/Desktop/project/2.jpg");
-            break;
-        case 3:
-            surface = IMG_Load("/home/tara/Desktop/project/3.jpg");
-            break;
-        case 4:
-            surface = IMG_Load("/home/tara/Desktop/project/4.jpg");
-            break;
-    }
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
-    SDL_RenderCopy(sdlRenderer, texture, NULL, &potion->rect);
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(texture);
-    IMG_Quit();
-}
-void createpotion (potion* potion)
-{
-    if ( !(rand() % 60) )
-    {
-        int a = rand() % 4 + 1;
-        potion->type = a;
-        potion->flag = 0;
-        switch (potion->type)
-        {
-            case 1 :
-                potion->countmax = 300;
-                potion->stopattack = 0;
-                break;
-            case 2 :
-                potion->countmax = 500;
-                break;
-            case 3 :
-                potion->countmax = 250;
-                break;
-            case 4 :
-                potion->countmax = 400;
-                break;
-        }
-        if ( !(rand() % 4) )
-        {
-            potion->rect.x = 300 + (rand() % 700);
-            potion->rect.y = 400 + (rand() % 600);
-        }
-        else
-        {
-            potion->rect.x = 200 + (rand() % 300);
-            potion->rect.y = 200 + (rand() % 300);
-        }
-        potion->rect.h = 50;
-        potion->rect.w = 50;
-    }    
-}
-void potiontest(potion* potion, SDL_Renderer* renderer)
-{
-    IMG_Init(IMG_INIT_JPG);
-    SDL_Surface* surface = IMG_Load("/home/tara/Desktop/project/1.jpg");
-    SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_RenderCopy(renderer, text, NULL, &potion->rect);
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(text);
-    IMG_Quit();
-}
-int hitpotion (soldier* soldiers, potion* potion)
-{
-    if (soldiers->x >= potion->rect.x && (soldiers->x <= potion->rect.x + potion->rect.w) 
-        && soldiers->y >= potion->rect.y && (soldiers->y <= potion->rect.y + potion->rect.h) )
-        return 1;
-    else 
-        return 0;
-}
-
-void potiontime(SDL_Renderer* renderer, potion* potion)
-{
-    SDL_SetRenderDrawColor(renderer, 0x00, 0x66, 0x33, 0xff);
-    potion->time.x = 750;
-    potion->time.y = 60;
-    potion->time.h = 50;
-    double temp = (double)(potion->counter) / (double)(potion->countmax);
-    potion->time.w = temp * 600;
-    SDL_RenderFillRect(renderer, &(potion->time));
-    if (potion->type == 1)
-    {
-        potion->stopattack = 1;
-    }    
-}
-void potioninit(potion* potion)
-{
-    switch (potion->type)
-    {
-        case 1 : // stops from moving
-            potion->stopattack = 1;
-            break;
-        case 2 : // increases soldier speed
-            if (potion->activeforopp) {potion->rp = 1.5;}
-            else { potion->r = 1.5;}
-            break;
-        case 3 : //increases soldier creation rate
-            potion->rgameprogress = 10;
-            break;
-        case 4 : // stops from attacking
-            potion->attack = 0;
-            break;
-
-    }
-}
-// void potiontext (potion* potion, SDL_Renderer* renderer)
-// {
-//     sw
-// }
-void potionquit (potion* potion)
-{
-    switch (potion->type)
-    {
-        case 1 : // stops from moving
-            potion->stopattack = 0;
-            break;
-        case 2 :
-            potion->r = 1;
-            potion->rp = 1;
-            break;
-        case 3 :
-            potion->rgameprogress = 15;
-            break;
-        case 4 :
-            potion->attack = 1;
-            break;
-    }
-}
-void potiontext(potion* potion, SDL_Renderer* renderer)
-{
-    SDL_Surface* surface;
-    SDL_Texture* text;
-    potion->textbox.x = 750;
-    potion->textbox.y = 130;
-    potion->textbox.h = 50;
-    potion->textbox.w = 300;
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 20);
-    if (potion->activeforopp)
-    {
-        switch (potion->type)
-        {
-            case 1:
-                surface = TTF_RenderText_Solid(sans, "Movement block potion activated for opponent", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-            case 2:
-                surface = TTF_RenderText_Solid(sans, "Spead raise potion activated for opponent", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-            case 3:
-                surface = TTF_RenderText_Solid(sans, "Faster soldier creation activated for opponent", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-            case 4:
-                surface = TTF_RenderText_Solid(sans, "Attack block potion activated for opponent", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-        }
-    }
-    else 
-    {
-        switch (potion->type)
-        {
-            case 1:
-                surface = TTF_RenderText_Solid(sans, "Movement block potion activated for player", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-            case 2:
-                surface = TTF_RenderText_Solid(sans, "Spead raise potion activated for player", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-            case 3:
-                surface = TTF_RenderText_Solid(sans, "Faster soldier creation activated for player", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-            case 4:
-                surface = TTF_RenderText_Solid(sans, "Attack block potion activated for player", black);
-                text = SDL_CreateTextureFromSurface(renderer, surface);
-                SDL_RenderCopy(renderer, text, NULL, &(potion->textbox));
-                break;
-        }
-    }
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(text);
-    TTF_CloseFont(sans);
-}
 
 

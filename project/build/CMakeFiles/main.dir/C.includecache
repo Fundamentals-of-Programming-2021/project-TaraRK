@@ -6,30 +6,10 @@
 
 #IncludeRegexTransform: 
 
-../include/Menu.h
+/home/tara/Desktop/project/headers.h
 stdio.h
 -
 stdlib.h
--
-string.h
--
-time.h
--
-SDL2/SDL.h
--
-SDL2/SDL_timer.h
--
-SDL2/SDL2_gfxPrimitives.h
--
-SDL2/SDL_ttf.h
--
-
-../include/hi.h
-stdio.h
--
-stdlib.h
--
-string.h
 -
 time.h
 -
@@ -42,6 +22,8 @@ SDL2/SDL2_gfxPrimitives.h
 SDL2/SDL_ttf.h
 -
 SDL2/SDL_image.h
+-
+math.h
 -
 
 /home/tara/Desktop/project/sdltest.c
@@ -63,8 +45,8 @@ SDL2/SDL_image.h
 -
 math.h
 -
-hi.h
--
-Menu.h
--
+headers.h
+/home/tara/Desktop/project/headers.h
+string.h
+/home/tara/Desktop/project/string.h
 

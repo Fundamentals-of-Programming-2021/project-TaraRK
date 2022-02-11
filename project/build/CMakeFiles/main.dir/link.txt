@@ -1,1 +1,1 @@
-/usr/bin/cc    CMakeFiles/main.dir/sdltest.c.o  -o main  -lm -lSDL2 -lSDL2_gfx -lSDL2_ttf -lSDL2_image 
+/usr/bin/cc    CMakeFiles/main.dir/sdltest.c.o CMakeFiles/main.dir/Map.c.o CMakeFiles/main.dir/Menu.c.o CMakeFiles/main.dir/Potions.c.o CMakeFiles/main.dir/Game_Functions.c.o CMakeFiles/main.dir/Users.c.o CMakeFiles/main.dir/Maingame.c.o  -o main  -lm -lSDL2 -lSDL2_gfx -lSDL2_ttf -lSDL2_image 
