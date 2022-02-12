@@ -28,7 +28,7 @@ int main(void)
     {
         printf("%s", TTF_GetError());
     }
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 20);
+    TTF_Font *sans = TTF_OpenFont("Sans.ttf", 20);
    
     
 
@@ -57,36 +57,37 @@ int main(void)
     sortusernames(username,players,0);
     int number = -1;
 
-    SDL_bool button = SDL_FALSE;
-    SDL_Rect begingame;
-    SDL_Rect previousgame;
-    SDL_Rect Scoreboard;
-    menubuttons(&begingame, &previousgame, &Scoreboard);
-    while(number == -1)
-    {
-      number = show_menu(sdlrenderer, &begingame, &previousgame, &Scoreboard);
-    }
-    printf("bus\n");
-    int a;
-    int begin = 0;
-    switch (number) 
-    {
-        case 1 :
-            a = choosemap(sdlrenderer);
-            begin = 1;
-            break;
-        case 2 :
-            //sorry 
-            break;
-        case 3 :
-            rankings(sdlrenderer,SCREEN_WIDTH, SCREEN_WIDTH );
-            break;
+    // SDL_bool button = SDL_FALSE;
+    // SDL_Rect begingame;
+    // SDL_Rect previousgame;
+    // SDL_Rect Scoreboard;
+    // menubuttons(&begingame, &previousgame, &Scoreboard);
+    // while(number == -1)
+    // {
+    //   number = show_menu(sdlrenderer, &begingame, &previousgame, &Scoreboard);
+    // }
+    // printf("bus\n");
+    // int a;
+    // int begin = 0;
+    // switch (number) 
+    // {
+    //     case 1 :
+    //         a = choosemap(sdlrenderer);
+    //         begin = 1;
+    //         break;
+    //     case 2 :
+    //         //sorry 
+    //         break;
+    //     case 3 :
+    //         rankings(sdlrenderer,SCREEN_WIDTH, SCREEN_WIDTH );
+    //         break;
 
-    }
+    // }
+    int begin = 1;
     int state;
     if (begin)
     {
-        state = maingame(a);
+        state = maingame(1);
     }
     if (state == 1)
     {

@@ -25,7 +25,7 @@ int maingame(int map)
     {
         printf("%s", TTF_GetError());
     }
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 20);
+    TTF_Font *sans = TTF_OpenFont("Sans.ttf", 20);
    
     srand((unsigned)time(&t1));
     triangle triangles [11];
@@ -448,6 +448,7 @@ int maingame(int map)
                         case SDL_QUIT:
                             shallExit = SDL_TRUE;
                             break;
+                            return 0;
                         case SDL_MOUSEBUTTONDOWN:
                         {
                             Mouse.src = sourcefinder(triangles, 9, &sdlEvent, &Mouse);

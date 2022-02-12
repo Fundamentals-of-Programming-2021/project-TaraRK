@@ -20,16 +20,16 @@ void potionrenderer (potion* potion, SDL_Renderer* sdlRenderer)
     switch (potion->type)
     {
         case 1:
-            surface = IMG_Load("/home/tara/Desktop/project/1.jpg");
+            surface = IMG_Load("1.jpg");
             break;
         case 2:
-            surface = IMG_Load("/home/tara/Desktop/project/2.jpg");
+            surface = IMG_Load("2.jpg");
             break;
         case 3:
-            surface = IMG_Load("/home/tara/Desktop/project/3.jpg");
+            surface = IMG_Load("3.jpg");
             break;
         case 4:
-            surface = IMG_Load("/home/tara/Desktop/project/4.jpg");
+            surface = IMG_Load("4.jpg");
             break;
     }
     SDL_Texture* texture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
@@ -159,7 +159,7 @@ void potiontext(potion* potion, SDL_Renderer* renderer)
     potion->textbox.y = 130;
     potion->textbox.h = 50;
     potion->textbox.w = 300;
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 20);
+    TTF_Font *sans = TTF_OpenFont("Sans.ttf", 20);
     if (potion->activeforopp)
     {
         switch (potion->type)

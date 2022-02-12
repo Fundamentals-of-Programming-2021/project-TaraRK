@@ -82,7 +82,7 @@ void menutext (SDL_Renderer* renderer, SDL_Rect* rect1, SDL_Rect* rect2, SDL_Rec
     {
         printf("%s", TTF_GetError());
     }
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 25);
+    TTF_Font *sans = TTF_OpenFont("Sans.ttf", 25);
     if(!sans) 
     {
     printf("TTF_OpenFont: %s\n", TTF_GetError());

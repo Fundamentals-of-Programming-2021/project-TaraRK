@@ -108,7 +108,7 @@ void uploadimage(SDL_Renderer* renderer, char* name, int x, int y)
 }
 void textgenerator(triangle* triangles, SDL_Renderer* renderer, int n)
 {
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 20);
+    TTF_Font *sans = TTF_OpenFont("Sans.ttf", 20);
     for (int i = 0; i < n; i++)
     {
         inttostr((triangles + i)->soldiernum, (triangles + i)->numstr);

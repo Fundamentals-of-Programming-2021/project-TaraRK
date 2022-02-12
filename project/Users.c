@@ -12,7 +12,7 @@
 
 void textmaker(SDL_Renderer *renderer, int x, int y, char *text)
 {
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 50);
+    TTF_Font *sans = TTF_OpenFont("Sans.ttf", 50);
     SDL_Rect* rect = (SDL_Rect*)malloc(sizeof(SDL_Rect));
     SDL_Color black = {0, 0, 0, 255};
     SDL_Surface* surface = TTF_RenderText_Solid(sans, text, black);
@@ -29,7 +29,7 @@ void textmaker(SDL_Renderer *renderer, int x, int y, char *text)
 }
 void usernametext (SDL_Renderer *renderer, int x, int y, char *text)
 {
-    TTF_Font *sans = TTF_OpenFont("/home/tara/Desktop/project/Sans.ttf", 50);
+    TTF_Font *sans = TTF_OpenFont("Sans.ttf", 50);
     SDL_Rect* rect = (SDL_Rect*)malloc(sizeof(SDL_Rect));
     SDL_Color white = {255, 255, 255, 255};
     SDL_Surface* surface = TTF_RenderText_Solid(sans, text, white);
@@ -55,7 +55,7 @@ void getusername(SDL_Renderer * renderer, char* username)
         int l = strlen(username);
         SDL_SetRenderDrawColor(renderer, 0x33, 0x00, 0x66, 0xff);
         SDL_RenderClear(renderer);
-        textmaker(renderer, 600, 300, username);
+        usernametext(renderer, 600, 300, username);
         SDL_RenderPresent(renderer);
         SDL_Event sdlEvent;
           while(SDL_PollEvent(&sdlEvent))
