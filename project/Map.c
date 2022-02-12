@@ -130,6 +130,56 @@ int timestamp (SDL_Event* event)
             return (event->button.timestamp);
     }
 }
+void initializetest (triangle* triangles)
+{
+    for(int i = 0; i < 10; i++)
+    {
+        (triangles + i)->flag = 1;
+        (triangles + i)->background = 0x099999ff;
+        (triangles + i)->counter = 0;
+        (triangles + i)->soldiernum = 0;
+        (triangles + i)->soldiers = NULL;
+    }
+    (triangles + 0)->p1.x = 30; (triangles + 0)->p1.y = 30;
+    (triangles + 0)->p2.x = 100; (triangles + 0)->p2.y = 30;
+    (triangles + 0)->p3.x = 30; (triangles + 0)->p3.y = 100;
+    (triangles + 1)->p1.x = 100; (triangles + 1)->p1.y = 30;
+    (triangles + 1)->p2.x = 30; (triangles + 1)->p2.y = 100;
+    (triangles + 1)->p3.x = 250; (triangles + 1)->p3.y = 250;
+    (triangles + 2)->p1.x = 250; (triangles + 2)->p1.y = 250;
+    (triangles + 2)->p2.x = 100; (triangles + 2)->p2.y = 30;
+    (triangles + 2)->p3.x = 500; (triangles + 2)->p3.y = 200;
+    (triangles + 3)->p1.x = 250; (triangles + 3)->p1.y = 250;
+    (triangles + 3)->p2.x = 500; (triangles + 3)->p2.y = 200;
+    (triangles + 3)->p3.x = 400; (triangles + 3)->p3.y = 600;
+    (triangles + 4)->p1.x = 600; (triangles + 4)->p1.y = 370;
+    (triangles + 4)->p2.x = 500; (triangles + 4)->p2.y = 200;
+    (triangles + 4)->p3.x = 400; (triangles + 4)->p3.y = 600;
+    (triangles + 5)->p1.x = 600; (triangles + 5)->p1.y = 370;
+    (triangles + 5)->p2.x = 500; (triangles + 5)->p2.y = 700;
+    (triangles + 5)->p3.x = 400; (triangles + 5)->p3.y = 600;
+    (triangles + 6)->p1.x = 150; (triangles + 6)->p1.y = 500;
+    (triangles + 6)->p2.x = 250; (triangles + 6)->p2.y = 250;
+    (triangles + 6)->p3.x = 400; (triangles + 6)->p3.y = 600;
+    (triangles + 7)->p1.x = 150; (triangles + 7)->p1.y = 500;
+    (triangles + 7)->p2.x = 250; (triangles + 7)->p2.y = 250;
+    (triangles + 7)->p3.x = 30; (triangles + 7)->p3.y = 100;
+    (triangles + 8)->p1.x = 700; (triangles + 8)->p1.y = 200;
+    (triangles + 8)->p2.x = 500; (triangles + 8)->p2.y = 200;
+    (triangles + 8)->p3.x = 600; (triangles + 8)->p3.y = 370;
+    (triangles + 9)->p1.x = 500; (triangles + 9)->p1.y = 700;
+    (triangles + 9)->p2.x = 400; (triangles + 9)->p2.y = 600;
+    (triangles + 9)->p3.x = 380; (triangles + 9)->p3.y = 710;
+    (triangles + 10)->p1.x = 400; (triangles + 10)->p1.y = 600;
+    (triangles + 10)->p2.x = 150; (triangles + 10)->p2.y = 500;
+    (triangles + 10)->p3.x = 100; (triangles + 10)->p3.y = 550;
+    (triangles + 10)->background = 0x09ffcc99;
+    (triangles + 10)->flag = 0;
+    (triangles + 10)->counter = 0;
+    (triangles + 10)->soldiernum = 0;
+    (triangles + 10)->soldiers = NULL;
+     
+}
 void initialize1(triangle* triangles)
 {
     for (int i = 0; i < 9; i ++)
@@ -358,6 +408,17 @@ void rectinitializer (triangle* triangles, int n)
 void drawmap(triangle* triangles, SDL_Renderer* renderer)
 {
     for (int i = 0; i < 9; i ++)
+    {
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+            filledTrigonColor(renderer, 2 * ((triangles + i)->p1).x, 2 * ((triangles + i)->p1).y, 2 * ((triangles + i)->p2).x, 2 * ((triangles + i)->p2).y, 2 * ((triangles + i)->p3).x, 2 * ((triangles + i)->p3).y, (triangles + i)->background);
+        thickLineColor(renderer,  2 * ((triangles + i)->p1).x, 2 * ((triangles + i)->p1).y, 2 * ((triangles + i)->p2).x, 2 * ((triangles + i)->p2).y, 7, background);
+        thickLineColor(renderer,  2 * ((triangles + i)->p1).x, 2 * ((triangles + i)->p1).y, 2 * ((triangles + i)->p3).x, 2 * ((triangles + i)->p3).y, 7, background);
+        thickLineColor(renderer,  2 * ((triangles + i)->p3).x, 2 * ((triangles + i)->p3).y, 2 * ((triangles + i)->p2).x, 2 * ((triangles + i)->p2).y, 7, background);
+    }
+}
+void drawtestmap(triangle* triangles, SDL_Renderer* renderer)
+{
+    for (int i = 0; i < 11; i++)
     {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             filledTrigonColor(renderer, 2 * ((triangles + i)->p1).x, 2 * ((triangles + i)->p1).y, 2 * ((triangles + i)->p2).x, 2 * ((triangles + i)->p2).y, 2 * ((triangles + i)->p3).x, 2 * ((triangles + i)->p3).y, (triangles + i)->background);

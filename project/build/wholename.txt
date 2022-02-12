@@ -1,2 +1,3 @@
 hi : 0
-tara : -50
+reza : -50
+tara : -100

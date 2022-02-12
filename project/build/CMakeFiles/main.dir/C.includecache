@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/tara/Desktop/project/Users.c
+/home/tara/Desktop/project/Maingame.c
 stdio.h
 -
 stdlib.h
@@ -23,12 +23,8 @@ SDL2/SDL2_gfxPrimitives.h
 -
 SDL2/SDL_ttf.h
 -
-SDL2/SDL_image.h
--
 headers.h
 /home/tara/Desktop/project/headers.h
-string.h
-/home/tara/Desktop/project/string.h
 
 /home/tara/Desktop/project/headers.h
 stdio.h

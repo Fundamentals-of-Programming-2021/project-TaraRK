@@ -94,6 +94,8 @@ void rectinitializer (triangle* triangles, int n);
 void drawmap(triangle* triangles, SDL_Renderer* renderer);
 int choosemap(SDL_Renderer * sdlrenderer);
 void uploadimage(SDL_Renderer* renderer, char* name, int x, int y);
+void initializetest (triangle* triangles);
+void drawtestmap(triangle* triangles, SDL_Renderer* renderer);
 // Menu Functions
 void menubuttons (SDL_Rect* rect1, SDL_Rect* rect2, SDL_Rect* rect3);
 int validate (SDL_Rect* rect1, SDL_Rect* rect2, SDL_Rect* rect3, mouse* mouse);

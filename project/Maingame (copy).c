@@ -32,8 +32,8 @@ int maingame(int map)
     potion potion;
     potion.type = 0;
 
-    // int msrc [100];
-    // int mdest [100];
+    int msrc [100];
+    int mdest [100];
 
     mouse Mouse; 
     Mouse.src = 0;
